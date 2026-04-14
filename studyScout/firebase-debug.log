@@ -1,0 +1,96 @@
+[debug] [2026-04-14T02:15:13.256Z] ----------------------------------------------------------------------
+[debug] [2026-04-14T02:15:13.257Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2026-04-14T02:15:13.257Z] CLI Version:   15.14.0
+[debug] [2026-04-14T02:15:13.257Z] Platform:      darwin
+[debug] [2026-04-14T02:15:13.257Z] Node Version:  v24.14.1
+[debug] [2026-04-14T02:15:13.257Z] Time:          Mon Apr 13 2026 19:15:13 GMT-0700 (Pacific Daylight Time)
+[debug] [2026-04-14T02:15:13.257Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/angela_jiang/Desktop/Coding Projects/StudyScout-1/studyScout
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 
+[debug] [2026-04-14T02:16:46.052Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-04-14T02:16:46.052Z] > authorizing via signed-in user (aj503822@gmail.com)
+[debug] [2026-04-14T02:16:46.054Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:16:46.054Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:16:46.055Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2026-04-14T02:16:46.433Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2026-04-14T02:16:46.433Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] 
+=== Dataconnect Setup
+[info] i  dataconnect: ensuring required API firebasedataconnect.googleapis.com is enabled... 
+[debug] [2026-04-14T02:16:56.370Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:16:56.370Z] Checked if tokens are valid: true, expires at: 1776136482787
+[info] i  dataconnect: ensuring required API sqladmin.googleapis.com is enabled... 
+[debug] [2026-04-14T02:16:56.370Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:16:56.370Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:16:56.371Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/firebasedataconnect.googleapis.com [none]
+[debug] [2026-04-14T02:16:56.371Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/firebasedataconnect.googleapis.com  x-goog-user-project=studyscout-4b018
+[debug] [2026-04-14T02:16:56.372Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/sqladmin.googleapis.com [none]
+[debug] [2026-04-14T02:16:56.372Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/sqladmin.googleapis.com  x-goog-user-project=studyscout-4b018
+[debug] [2026-04-14T02:16:56.564Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/sqladmin.googleapis.com 200
+[debug] [2026-04-14T02:16:56.565Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/sqladmin.googleapis.com [omitted]
+[warn] ⚠  dataconnect: missing required API sqladmin.googleapis.com. Enabling now... 
+[debug] [2026-04-14T02:16:56.566Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:16:56.566Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:16:56.566Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/sqladmin.googleapis.com:enable [none]
+[debug] [2026-04-14T02:16:56.566Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/sqladmin.googleapis.com:enable  x-goog-user-project=studyscout-4b018
+[debug] [2026-04-14T02:16:56.899Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/firebasedataconnect.googleapis.com 200
+[debug] [2026-04-14T02:16:56.899Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/firebasedataconnect.googleapis.com [omitted]
+[warn] ⚠  dataconnect: missing required API firebasedataconnect.googleapis.com. Enabling now... 
+[debug] [2026-04-14T02:16:56.900Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:16:56.900Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:16:56.900Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/firebasedataconnect.googleapis.com:enable [none]
+[debug] [2026-04-14T02:16:56.900Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/firebasedataconnect.googleapis.com:enable  x-goog-user-project=studyscout-4b018
+[debug] [2026-04-14T02:16:56.902Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/sqladmin.googleapis.com:enable 200
+[debug] [2026-04-14T02:16:56.902Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/sqladmin.googleapis.com:enable [omitted]
+[debug] [2026-04-14T02:16:57.139Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/firebasedataconnect.googleapis.com:enable 200
+[debug] [2026-04-14T02:16:57.139Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/firebasedataconnect.googleapis.com:enable [omitted]
+[debug] [2026-04-14T02:17:07.147Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:17:07.147Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:17:07.148Z] >>> [apiv2][query] GET https://firebasedataconnect.googleapis.com/v1/projects/studyscout-4b018/locations/-/services [none]
+[debug] [2026-04-14T02:17:07.852Z] <<< [apiv2][status] GET https://firebasedataconnect.googleapis.com/v1/projects/studyscout-4b018/locations/-/services 200
+[debug] [2026-04-14T02:17:07.852Z] <<< [apiv2][body] GET https://firebasedataconnect.googleapis.com/v1/projects/studyscout-4b018/locations/-/services {}
+[info] i  : ensuring required API cloudaicompanion.googleapis.com is enabled... 
+[debug] [2026-04-14T02:17:35.148Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:17:35.149Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:17:35.149Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/cloudaicompanion.googleapis.com [none]
+[debug] [2026-04-14T02:17:35.149Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/cloudaicompanion.googleapis.com  x-goog-user-project=studyscout-4b018
+[debug] [2026-04-14T02:17:35.406Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/cloudaicompanion.googleapis.com 200
+[debug] [2026-04-14T02:17:35.406Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/studyscout-4b018/services/cloudaicompanion.googleapis.com [omitted]
+[info] ✔  : required API cloudaicompanion.googleapis.com is enabled 
+[debug] [2026-04-14T02:17:44.975Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:17:44.975Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:17:44.975Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/studyscout-4b018/billingInfo [none]
+[debug] [2026-04-14T02:17:45.409Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/studyscout-4b018/billingInfo 200
+[debug] [2026-04-14T02:17:45.410Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/studyscout-4b018/billingInfo {"name":"projects/studyscout-4b018/billingInfo","projectId":"studyscout-4b018","billingAccountName":"","billingEnabled":false}
+[debug] [2026-04-14T02:17:45.410Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:17:45.410Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:17:45.410Z] >>> [apiv2][query] GET https://monitoring.googleapis.com/v3/projects/studyscout-4b018/timeSeries/ filter=metric.type%3D%22serviceruntime.googleapis.com%2Fquota%2Fallocation%2Fusage%22+AND+metric.label.quota_metric+%3D+%22sqladmin.googleapis.com%2Ffdc_lifetime_free_trial_per_project%22&interval.endTime=2026-04-14T02%3A17%3A45.410Z&interval.startTime=2026-04-07T02%3A17%3A45.410Z
+[debug] [2026-04-14T02:17:46.147Z] <<< [apiv2][status] GET https://monitoring.googleapis.com/v3/projects/studyscout-4b018/timeSeries/ 200
+[debug] [2026-04-14T02:17:46.147Z] <<< [apiv2][body] GET https://monitoring.googleapis.com/v3/projects/studyscout-4b018/timeSeries/ {"unit":"1"}
+[info] ✔  dataconnect: CloudSQL no cost trial available! 
+[debug] [2026-04-14T02:17:46.148Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:17:46.148Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:17:46.148Z] >>> [apiv2][query] GET https://sqladmin.googleapis.com/v1/projects/studyscout-4b018/instances [none]
+[debug] [2026-04-14T02:17:46.408Z] <<< [apiv2][status] GET https://sqladmin.googleapis.com/v1/projects/studyscout-4b018/instances 200
+[debug] [2026-04-14T02:17:46.408Z] <<< [apiv2][body] GET https://sqladmin.googleapis.com/v1/projects/studyscout-4b018/instances {}
+[debug] [2026-04-14T02:17:46.408Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:17:46.408Z] Checked if tokens are valid: true, expires at: 1776136482787
+[debug] [2026-04-14T02:17:46.408Z] >>> [apiv2][query] GET https://firebasedataconnect.googleapis.com/v1/projects/studyscout-4b018/locations [none]
+[debug] [2026-04-14T02:17:46.757Z] <<< [apiv2][status] GET https://firebasedataconnect.googleapis.com/v1/projects/studyscout-4b018/locations 200
+[debug] [2026-04-14T02:17:46.758Z] <<< [apiv2][body] GET https://firebasedataconnect.googleapis.com/v1/projects/studyscout-4b018/locations {"locations":[{"name":"projects/studyscout-4b018/locations/asia-east1","locationId":"asia-east1","displayName":"Taiwan"},{"name":"projects/studyscout-4b018/locations/asia-east2","locationId":"asia-east2","displayName":"Hong Kong"},{"name":"projects/studyscout-4b018/locations/asia-northeast1","locationId":"asia-northeast1","displayName":"Tokyo"},{"name":"projects/studyscout-4b018/locations/asia-northeast2","locationId":"asia-northeast2","displayName":"Osaka"},{"name":"projects/studyscout-4b018/locations/asia-northeast3","locationId":"asia-northeast3","displayName":"Seoul"},{"name":"projects/studyscout-4b018/locations/asia-south1","locationId":"asia-south1","displayName":"Mumbai"},{"name":"projects/studyscout-4b018/locations/asia-southeast1","locationId":"asia-southeast1","displayName":"Singapore"},{"name":"projects/studyscout-4b018/locations/asia-southeast2","locationId":"asia-southeast2","displayName":"Jakarta"},{"name":"projects/studyscout-4b018/locations/australia-southeast1","locationId":"australia-southeast1","displayName":"Sydney"},{"name":"projects/studyscout-4b018/locations/australia-southeast2","locationId":"australia-southeast2","displayName":"Melbourne"},{"name":"projects/studyscout-4b018/locations/europe-central2","locationId":"europe-central2","displayName":"Warsaw"},{"name":"projects/studyscout-4b018/locations/europe-north1","locationId":"europe-north1","displayName":"Finland"},{"name":"projects/studyscout-4b018/locations/europe-southwest1","locationId":"europe-southwest1","displayName":"Madrid"},{"name":"projects/studyscout-4b018/locations/europe-west1","locationId":"europe-west1","displayName":"Belgium"},{"name":"projects/studyscout-4b018/locations/europe-west2","locationId":"europe-west2","displayName":"London"},{"name":"projects/studyscout-4b018/locations/europe-west3","locationId":"europe-west3","displayName":"Frankfurt"},{"name":"projects/studyscout-4b018/locations/europe-west4","locationId":"europe-west4","displayName":"Netherlands"},{"name":"projects/studyscout-4b018/locations/europe-west6","locationId":"europe-west6","displayName":"Zurich"},{"name":"projects/studyscout-4b018/locations/europe-west8","locationId":"europe-west8","displayName":"Milan"},{"name":"projects/studyscout-4b018/locations/europe-west9","locationId":"europe-west9","displayName":"Paris"},{"name":"projects/studyscout-4b018/locations/me-west1","locationId":"me-west1","displayName":"Tel Aviv"},{"name":"projects/studyscout-4b018/locations/northamerica-northeast1","locationId":"northamerica-northeast1","displayName":"Montréal"},{"name":"projects/studyscout-4b018/locations/northamerica-northeast2","locationId":"northamerica-northeast2","displayName":"Toronto"},{"name":"projects/studyscout-4b018/locations/southamerica-east1","locationId":"southamerica-east1","displayName":"São Paulo"},{"name":"projects/studyscout-4b018/locations/southamerica-west1","locationId":"southamerica-west1","displayName":"Santiago"},{"name":"projects/studyscout-4b018/locations/us-central1","locationId":"us-central1","displayName":"Iowa"},{"name":"projects/studyscout-4b018/locations/us-east1","locationId":"us-east1","displayName":"South Carolina"},{"name":"projects/studyscout-4b018/locations/us-east4","locationId":"us-east4","displayName":"Northern Virginia"},{"name":"projects/studyscout-4b018/locations/us-south1","locationId":"us-south1","displayName":"Dallas"},{"name":"projects/studyscout-4b018/locations/us-west1","locationId":"us-west1","displayName":"Oregon"},{"name":"projects/studyscout-4b018/locations/us-west2","locationId":"us-west2","displayName":"Los Angeles"},{"name":"projects/studyscout-4b018/locations/us-west3","locationId":"us-west3","displayName":"Salt Lake City"},{"name":"projects/studyscout-4b018/locations/us-west4","locationId":"us-west4","displayName":"Las Vegas"}]}
