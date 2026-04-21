@@ -11,9 +11,8 @@ export type StudySpot = {
   address: string;
   rating: number;
   distance?: string;
-  image: string;
+  imageURL?: string;
   noiseLevel?: 'Quiet' | 'Moderate' | 'Loud';
   hasWifi?: boolean;
   hasOutlets?: boolean;
-  imageUrl?: string;
 };

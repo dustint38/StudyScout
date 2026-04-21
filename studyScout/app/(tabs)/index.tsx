@@ -1,45 +1,73 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet, FlatList, View} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  SafeAreaView,
+  ActivityIndicator,
+  ScrollView,
+} from 'react-native';
 import { useStudySpots } from '@/hooks/useStudySpots';
-
-import StudySpotCard, { StudySpot }  from '@/components/StudySpotCard';
-
-
-const { spots: studySpots } = useStudySpots();
+import { useSpotSearch } from '@/hooks/useSpotSearch';
+import SpotSection from '@/components/SpotSection';
 
 export default function HomeScreen() {
+  const { spots, loading } = useStudySpots();
+  const { search, setSearch, filtered } = useSpotSearch(spots);
+
+  const recommended = filtered.slice(0, 3);
+  const trending = filtered.slice(3);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#000" />
+        <Text>Loading study spots...</Text>
+      </View>
+    );
+  }
+
   return (
-    <View style={{ flex: 1, padding: 16 }}>
-      <FlatList
-        data={studySpots}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => <StudySpotCard spot={item} />}
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.header}>StudyScout</Text>
+      <TextInput
+        style={styles.searchBar}
+        placeholder="🔍  Search"
+        value={search}
+        onChangeText={setSearch}
       />
-    </View>
-  )
+      <ScrollView>
+        <SpotSection title="Recommended Near You" spots={recommended} />
+        <SpotSection title="Trending Now" spots={trending} />
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 16,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
+    gap: 12,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  header: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginTop: 16,
+    marginBottom: 12,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  searchBar: {
+    backgroundColor: '#f0f0f0',
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    fontSize: 16,
+    marginBottom: 20,
   },
 });
