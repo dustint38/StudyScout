@@ -64,8 +64,8 @@ type StudySpot = {
   id: string;
   name: string;
   rating: number;
-  distance: string;
-  imageUrl: string;
+  distance: number;
+  imageURL: string;
 };
 
 export default function HomeScreen() {
@@ -147,7 +147,7 @@ function SpotCard({ spot }: { spot: StudySpot }) {
   return (
     <View style={styles.card}>
       <Image
-        source={{ uri: spot.imageUrl }}
+        source={{ uri: spot.imageURL }}
         style={styles.cardImage}
       />
       <View style={styles.cardInfo}>
@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
   cardImage: {
     width: 80,
     height: 80,
+    borderColor: 'red',
   },
   cardInfo: {
     flex: 1,
