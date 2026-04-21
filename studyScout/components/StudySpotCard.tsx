@@ -1,12 +1,5 @@
 import { View, Text, Image, StyleSheet, ImageSourcePropType} from 'react-native'
-
-type StudySpot = {
-  id: string
-  name: string
-  rating: number
-  distance: string
-  image: string
-}
+import { StudySpot } from '../types';
 
 type Props = {
   spot: StudySpot
