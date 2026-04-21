@@ -6,13 +6,12 @@ import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
-
+import { useStudySpots } from '@/hooks/useStudySpots';
 
 import StudySpotCard, { StudySpot }  from '@/components/StudySpotCard';
 
 
-const studySpots: StudySpot[] = [
-]
+const { spots: studySpots } = useStudySpots();
 
 export default function HomeScreen() {
   return (
