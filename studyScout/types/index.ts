@@ -15,5 +15,4 @@ export type StudySpot = {
   noiseLevel: 'Quiet' | 'Moderate' | 'Loud';
   hasWifi: boolean;
   hasOutlets: boolean;
-  imageUrl: string;
 };
