@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 16,
   },
-  button: { backgroundColor: "#007AFF", padding: 14, borderRadius: 8, alignItems: "center", verticalAlign: "middle", marginTop: 20 },
+  button: { backgroundColor: "#2774AE", padding: 14, borderRadius: 8, alignItems: "center", verticalAlign: "middle", marginTop: 20 },
   buttonText: { color: "#fff", fontWeight: "bold" },
   header: {
     paddingTop: 50,
