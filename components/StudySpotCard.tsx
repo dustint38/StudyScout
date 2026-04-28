@@ -16,7 +16,7 @@ export default function StudySpotCard({ spot, onPress }: Props) {
   const showPlaceholder = !spot.imageURL || imgError;
 
   return (
-    <Pressable onPress={onPress ?? (() => router.push(`/study-spot/${spot.id}`))}>
+    <Pressable style={styles.card} onPress={onPress ?? (() => router.push(`/study-spot/${spot.id}`))}>
       {showPlaceholder ? (
         <View style={[styles.image, styles.placeholder]}>
           <Text style={styles.placeholderText}>📍</Text>
@@ -30,19 +30,19 @@ export default function StudySpotCard({ spot, onPress }: Props) {
       )}
       <View style={styles.info}>
         <Text style={styles.name}>{spot.name}</Text>
-        <Text style={styles.detail}>{spot.rating} · {spot.distance}</Text>
+        <Text style={styles.detail}>⭐{spot.rating} · {spot.distance}</Text>
       </View>
     </Pressable>
   )
 }
 
 const styles = StyleSheet.create({
-  card:            { flexDirection: 'row', padding: 12, gap: 12 },
-  image:           { width: 72, height: 72, borderRadius: 8 },
+  card:            { flexDirection: 'row', padding: 12, gap: 12,  } ,
+  image:           { width: 72, height: 72, borderRadius: 8 , marginLeft: 20},
   placeholder:     { backgroundColor: '#e0e0e0', alignItems: 'center', justifyContent: 'center' },
   placeholderText: { fontSize: 24 },
-  info:            { flex: 1, justifyContent: 'center' },
-  name:            { fontSize: 15, fontWeight: '500' },
+  info:            { flex: 1, justifyContent: 'center', marginLeft: 20 },
+  name:            { fontFamily: 'sans-serif', fontSize: 15, fontWeight: '500', marginLeft: -2},
   detail:          { fontSize: 13, color: '#888', marginTop: 4 },
 })
 

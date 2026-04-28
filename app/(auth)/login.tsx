@@ -52,6 +52,10 @@ export default function LoginScreen() {
       <TouchableOpacity onPress={() => router.push("/(auth)/signup")}>
         <Text style={styles.link}>Don't have an account? Sign up</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => router.back()}>
+        <Text style={styles.skip}>Not now</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -64,4 +68,5 @@ const styles = StyleSheet.create({
   buttonText: { color: "#fff", fontWeight: "bold" },
   link: { marginTop: 16, textAlign: "center", color: "#007AFF" },
   error: { color: "red", marginBottom: 12 },
+  skip: { marginTop: 12, textAlign: "center", color: "#888" },
 });

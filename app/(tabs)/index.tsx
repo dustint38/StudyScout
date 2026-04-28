@@ -31,7 +31,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.header}>StudyScout</Text>
-      <TextInput
+      <TextInput 
         style={styles.searchBar}
         placeholder="🔍  Search"
         value={search}
@@ -50,18 +50,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingHorizontal: 16,
+    
+    
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 12,
+    
   },
   header: {
+
     fontSize: 28,
     fontWeight: 'bold',
     marginTop: 16,
     marginBottom: 12,
+    marginLeft: 10,
   },
   searchBar: {
     backgroundColor: '#f0f0f0',
@@ -70,5 +75,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     fontSize: 16,
     marginBottom: 20,
+    marginLeft: 10,
+    marginRight: 10,
   },
 });
