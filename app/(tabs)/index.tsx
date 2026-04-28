@@ -10,6 +10,7 @@ import {
 import { useStudySpots } from '@/hooks/useStudySpots';
 import { useSpotSearch } from '@/hooks/useSpotSearch';
 import SpotSection from '@/components/SpotSection';
+import { router } from 'expo-router'
 
 export default function HomeScreen() {
   const { spots, loading } = useStudySpots();

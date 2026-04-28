@@ -1,17 +1,22 @@
 import { useState } from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
+import { router } from 'expo-router'
 import { StudySpot } from '../types';
+
 
 type Props = {
   spot: StudySpot
+  onPress?: () => void
 }
 
-export default function StudySpotCard({ spot }: Props) {
+
+
+export default function StudySpotCard({ spot, onPress }: Props) {
   const [imgError, setImgError] = useState(false);
   const showPlaceholder = !spot.imageURL || imgError;
 
   return (
-    <View style={styles.card}>
+    <Pressable onPress={onPress ?? (() => router.push(`/study-spot/${spot.id}`))}>
       {showPlaceholder ? (
         <View style={[styles.image, styles.placeholder]}>
           <Text style={styles.placeholderText}>📍</Text>
@@ -27,7 +32,7 @@ export default function StudySpotCard({ spot }: Props) {
         <Text style={styles.name}>{spot.name}</Text>
         <Text style={styles.detail}>{spot.rating} · {spot.distance}</Text>
       </View>
-    </View>
+    </Pressable>
   )
 }
 
