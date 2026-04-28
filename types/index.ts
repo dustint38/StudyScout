@@ -16,3 +16,9 @@ export type StudySpot = {
   hasWifi?: boolean;
   hasOutlets?: boolean;
 };
+
+export type SpotFilters = {
+  noiseLevels: ('Quiet' | 'Moderate' | 'Loud')[];
+  hasWifi: boolean | null;
+  hasOutlets: boolean | null;
+};
