@@ -21,8 +21,8 @@ export default function SpotSection({ title, spots }: Props) {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: '800',
     marginBottom: 10,
     color: '#333',
   },
