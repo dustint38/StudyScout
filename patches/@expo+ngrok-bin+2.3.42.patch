@@ -1,0 +1,26 @@
+diff --git a/node_modules/@expo/ngrok-bin/index.js b/node_modules/@expo/ngrok-bin/index.js
+index dacc831..3d8da5e 100644
+--- a/node_modules/@expo/ngrok-bin/index.js
++++ b/node_modules/@expo/ngrok-bin/index.js
+@@ -1,11 +1,11 @@
+-try {
+-  module.exports = require.resolve(
+-    "@expo/ngrok-bin-" +
+-      process.platform +
+-      "-" +
+-      process.arch +
+-      (process.platform === "win32" ? "/ngrok.exe" : "/ngrok")
+-  );
+-} catch (e) {
+-  module.exports = null;
++const ext = process.platform === "win32" ? "/ngrok.exe" : "/ngrok";
++const arches = [process.arch];
++if (process.platform === "win32" && process.arch === "arm64") arches.push("x64");
++let resolved = null;
++for (const arch of arches) {
++  try {
++    resolved = require.resolve("@expo/ngrok-bin-" + process.platform + "-" + arch + ext);
++    break;
++  } catch (e) {}
+ }
++module.exports = resolved;
