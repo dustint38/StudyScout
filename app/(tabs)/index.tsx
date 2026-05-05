@@ -9,11 +9,11 @@ import {
   ScrollView,
   Pressable,
 } from 'react-native';
+import { router } from 'expo-router';
 import { useStudySpots } from '@/hooks/useStudySpots';
 import { useSpotSearch } from '@/hooks/useSpotSearch';
 import SpotSection from '@/components/SpotSection';
 import FilterModal from '@/components/FilterModal';
-import { router } from 'expo-router'
 
 export default function HomeScreen() {
   const { spots, loading } = useStudySpots();
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -4,
     right: -4,
-    backgroundColor: '##2774AE',
+    backgroundColor: '#2774AE',
     borderRadius: 8,
     minWidth: 16,
     height: 16,

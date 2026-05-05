@@ -52,16 +52,22 @@ export default function SignupScreen() {
       <TouchableOpacity onPress={() => router.push("/(auth)/login")}>
         <Text style={styles.link}>Already have an account? Log in</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => router.replace("/(tabs)/profile")}>
+              <Text style={styles.skip}>Not now</Text>
+            </TouchableOpacity>
     </View>
+    
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", padding: 24 },
+  container: { flex: 1, justifyContent: "center", padding: 24, backgroundColor: '#fff' },
   title: { fontSize: 28, fontWeight: "bold", marginBottom: 24 },
-  input: { borderWidth: 1, borderColor: "#ccc", borderRadius: 8, padding: 12, marginBottom: 16 },
-  button: { backgroundColor: "#007AFF", padding: 14, borderRadius: 8, alignItems: "center" },
+  input: { borderWidth: 1, borderColor: "#ccc", borderRadius: 8, padding: 12, marginBottom: 16 , color: '#9d9d9d'},
+  button: { backgroundColor: "#2774AE", padding: 14, borderRadius: 8, alignItems: "center" },
   buttonText: { color: "#fff", fontWeight: "bold" },
-  link: { marginTop: 16, textAlign: "center", color: "#007AFF" },
+  link: { marginTop: 16, textAlign: "center", color: "#2774AE" },
   error: { color: "red", marginBottom: 12 },
+  skip:              { marginTop: 5, textAlign: "center", color: "#9d9d9d" },
 });
