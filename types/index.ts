@@ -15,6 +15,8 @@ export type StudySpot = {
   noiseLevel?: 'Quiet' | 'Moderate' | 'Loud';
   hasWifi?: boolean;
   hasOutlets?: boolean;
+  latitude?: number;
+  longitude?: number;
 };
 
 export type SpotFilters = {

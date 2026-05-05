@@ -9,7 +9,11 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyCkTJtgup1yIm_6M2pyMqIzlNF0hGVZEUY"
+      },
+      "bundleIdentifier": "com.anonymous.studyScout"
     },
     "android": {
       "adaptiveIcon": {
@@ -19,7 +23,13 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCkTJtgup1yIm_6M2pyMqIzlNF0hGVZEUY"
+        }
+      },
+      "package": "com.anonymous.studyScout"
     },
     "web": {
       "output": "static",
