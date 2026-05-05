@@ -34,7 +34,12 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>StudyScout</Text>
+      <View style={styles.headerRow}>
+        <Text style={styles.header}>StudyScout</Text>
+        <Pressable onPress={() => router.push('/study-spot/add')} style={styles.addButton}>
+          <Text style={styles.addButtonText}>+</Text>
+        </Pressable>
+      </View>
       <View style={styles.searchRow}>
         <TextInput
           style={styles.searchBar}
@@ -77,12 +82,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
   },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 16,
+    marginBottom: 12,
+    marginHorizontal: 10,
+  },
   header: {
     fontSize: 28,
     fontWeight: 'bold',
-    marginTop: 16,
-    marginBottom: 12,
-    marginLeft: 10,
+  },
+  addButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#2774AE',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addButtonText: {
+    color: '#fff',
+    fontSize: 22,
+    lineHeight: 26,
+    fontWeight: '400',
+    paddingBottom: 2,
   },
   searchRow: {
     flexDirection: 'row',
@@ -114,7 +139,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -4,
     right: -4,
-    backgroundColor: '#007AFF',
+    backgroundColor: '##2774AE',
     borderRadius: 8,
     minWidth: 16,
     height: 16,
