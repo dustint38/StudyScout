@@ -1,4 +1,4 @@
-import { collection, getDocs, doc, getDoc, addDoc } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, addDoc, runTransaction, serverTimestamp } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { User } from "../types";
 import { StudySpot } from "../types";
@@ -28,4 +28,37 @@ export const getStudySpot = async (id: string): Promise<StudySpot | null> => {
 // Add a new study spot
 export const addStudySpot = async (spot: Omit<StudySpot, "id">): Promise<void> => {
   await addDoc(collection(db, "studySpots"), spot);
+};
+
+// Get the current user's rating for a spot (null if not yet rated)
+export const getUserRating = async (spotId: string, userId: string): Promise<number | null> => {
+  const snap = await getDoc(doc(db, "studySpots", spotId, "ratings", userId));
+  return snap.exists() ? (snap.data().value as number) : null;
+};
+
+// Submit or update a user's rating, keeping the spot's average in sync
+export const submitRating = async (spotId: string, userId: string, value: number): Promise<void> => {
+  const spotRef = doc(db, "studySpots", spotId);
+  const ratingRef = doc(db, "studySpots", spotId, "ratings", userId);
+
+  await runTransaction(db, async (tx) => {
+    const [spotSnap, ratingSnap] = await Promise.all([tx.get(spotRef), tx.get(ratingRef)]);
+    if (!spotSnap.exists()) throw new Error("Spot not found");
+
+    const { rating = 0, ratingCount = 0 } = spotSnap.data();
+    let newCount: number;
+    let newAvg: number;
+
+    if (ratingSnap.exists()) {
+      const oldValue = ratingSnap.data().value as number;
+      newCount = ratingCount;
+      newAvg = ratingCount > 0 ? (rating * ratingCount - oldValue + value) / ratingCount : value;
+    } else {
+      newCount = ratingCount + 1;
+      newAvg = (rating * ratingCount + value) / newCount;
+    }
+
+    tx.set(ratingRef, { value, updatedAt: serverTimestamp() });
+    tx.update(spotRef, { rating: newAvg, ratingCount: newCount });
+  });
 };
