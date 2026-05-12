@@ -66,7 +66,7 @@ export default function SpotMap() {
     ? { ...userLocation, latitudeDelta: 0.02, longitudeDelta: 0.02 }
     : DEFAULT_REGION;
 
-  const mappableSpots = spots.filter(s => s.location != null);
+  const mappableSpots = spots.filter(s => s.latitude != null && s.longitude != null);
 
   if (!NativeMapView) {
     return (
@@ -103,7 +103,7 @@ export default function SpotMap() {
         {mappableSpots.map((spot: any) => (
           <NativeMarker
             key={spot.id}
-            coordinate={spot.location}
+            coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
             pinColor="#2774AE"
           >
             <NativeCallout onPress={() => router.push(`/study-spot/${spot.id}`)}>

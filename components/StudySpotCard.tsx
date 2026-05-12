@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
 import { router } from 'expo-router'
 import { StudySpot } from '../types';
+import { useUserLocation } from '@/hooks/useUserLocation';
+import { distanceMiles, formatDistance } from '@/utils/distance';
 
 
 type Props = {
@@ -14,6 +16,12 @@ type Props = {
 export default function StudySpotCard({ spot, onPress }: Props) {
   const [imgError, setImgError] = useState(false);
   const showPlaceholder = !spot.imageURL || imgError;
+  const { coords } = useUserLocation();
+
+  const distanceText =
+    coords && spot.latitude != null && spot.longitude != null
+      ? formatDistance(distanceMiles(coords.latitude, coords.longitude, spot.latitude, spot.longitude))
+      : null;
 
   return (
     <Pressable style={styles.card} onPress={onPress ?? (() => router.push(`/study-spot/${spot.id}`))}>
@@ -30,7 +38,9 @@ export default function StudySpotCard({ spot, onPress }: Props) {
       )}
       <View style={styles.info}>
         <Text style={styles.name}>{spot.name}</Text>
-        <Text style={styles.detail}>⭐{spot.rating} · {spot.distance}</Text>
+        <Text style={styles.detail}>
+          ⭐{spot.rating}{distanceText ? ` · ${distanceText}` : ''}
+        </Text>
       </View>
     </Pressable>
   )

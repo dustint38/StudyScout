@@ -5,6 +5,7 @@ import {
 } from 'react-native'
 import { router, Stack } from 'expo-router'
 import * as ImagePicker from 'expo-image-picker'
+import * as Location from 'expo-location'
 import { addStudySpot, compressImageToDataUri } from '@/services/db'
 
 const NOISE_LEVELS = ['Quiet', 'Moderate', 'Loud'] as const
@@ -14,7 +15,6 @@ export default function AddStudySpot() {
   const [name, setName] = useState('')
   const [address, setAddress] = useState('')
   const [rating, setRating] = useState('')
-  const [distance, setDistance] = useState('')
   const [imageUri, setImageUri] = useState<string | null>(null)
   const [noiseLevel, setNoiseLevel] = useState<NoiseLevel | null>(null)
   const [hasWifi, setHasWifi] = useState<boolean | null>(null)
@@ -37,15 +37,26 @@ export default function AddStudySpot() {
       if (imageUri) {
         imageData = await compressImageToDataUri(imageUri)
       }
+
+      let coords: { latitude: number; longitude: number } | undefined
+      try {
+        const results = await Location.geocodeAsync(address.trim())
+        if (results.length > 0) {
+          coords = { latitude: results[0].latitude, longitude: results[0].longitude }
+        }
+      } catch {
+        // geocoding failed; spot will be saved without coordinates
+      }
+
       await addStudySpot({
         name: name.trim(),
         address: address.trim(),
         rating: parsedRating,
-        ...(distance.trim() && { distance: distance.trim() }),
         ...(imageData && { imageURL: imageData }),
         ...(noiseLevel && { noiseLevel }),
         ...(hasWifi !== null && { hasWifi }),
         ...(hasOutlets !== null && { hasOutlets }),
+        ...(coords && coords),
       })
       router.back()
     } catch (e: any) {
@@ -74,7 +85,16 @@ export default function AddStudySpot() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Add Study Spot' }} />
+      <Stack.Screen
+        options={{
+          title: 'Add Study Spot',
+          headerLeft: () => (
+            <Pressable onPress={() => router.back()} hitSlop={12}>
+              <Text style={styles.headerCancel}>Cancel</Text>
+            </Pressable>
+          ),
+        }}
+      />
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.label}>Name *</Text>
         <TextInput style={styles.input} value={name} onChangeText={setName} placeholder="e.g. Powell Library" />
@@ -84,9 +104,6 @@ export default function AddStudySpot() {
 
         <Text style={styles.label}>Rating (0–5) *</Text>
         <TextInput style={styles.input} value={rating} onChangeText={setRating} placeholder="e.g. 4.5" keyboardType="decimal-pad" />
-
-        <Text style={styles.label}>Distance</Text>
-        <TextInput style={styles.input} value={distance} onChangeText={setDistance} placeholder="e.g. 0.3 mi" />
 
         <Text style={styles.label}>Photo</Text>
         {imageUri ? (
@@ -172,4 +189,5 @@ const styles = StyleSheet.create({
   imageOverlayButton: { position: 'absolute', top: 8, right: 8, backgroundColor: 'rgba(0,0,0,0.6)', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 14 },
   imageRemoveButton:  { top: 'auto', bottom: 8 },
   imageOverlayText:   { color: '#fff', fontSize: 12, fontWeight: '600' },
+  headerCancel:       { color: '#2774AE', fontSize: 16, paddingHorizontal: 8 },
 })

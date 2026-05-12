@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
-import { View, Text, Image, StyleSheet, ActivityIndicator, ScrollView, TouchableOpacity, Alert } from 'react-native'
-import { useLocalSearchParams, Stack } from 'expo-router'
+import { View, Text, Image, StyleSheet, ActivityIndicator, ScrollView, TouchableOpacity, Alert, Pressable } from 'react-native'
+import { useLocalSearchParams, Stack, router } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import { useStudySpots } from '@/hooks/useStudySpots'
 import { useAuth } from '@/hooks/useAuth'
+import { useUserLocation } from '@/hooks/useUserLocation'
 import { getUserRating, submitRating } from '@/services/db'
+import { distanceMiles, formatDistance } from '@/utils/distance'
 
 export default function StudySpotDetail() {
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -12,6 +14,7 @@ export default function StudySpotDetail() {
   const { user } = useAuth()
   const spot = spots.find(s => s.id === id) ?? null
   const [imgError, setImgError] = useState(false)
+  const { coords } = useUserLocation()
 
   const [selectedStars, setSelectedStars] = useState<number>(0)
   const [submitting, setSubmitting] = useState(false)
@@ -26,6 +29,7 @@ export default function StudySpotDetail() {
         setExistingRating(r)
         if (r !== null) setSelectedStars(r)
       })
+      .catch(() => { /* fetch failed; leave rating fields empty */ })
       .finally(() => setRatingLoading(false))
   }, [user, id])
 
@@ -49,23 +53,17 @@ export default function StudySpotDetail() {
 
   if (loading) {
     return (
-      <>
-        <Stack.Screen options={{ headerShown: true, title: '' }} />
-        <View style={styles.centered}>
-          <ActivityIndicator size="large" color="#000" />
-        </View>
-      </>
+      <View style={styles.centered}>
+        <ActivityIndicator size="large" color="#000" />
+      </View>
     )
   }
 
   if (!spot) {
     return (
-      <>
-        <Stack.Screen options={{ headerShown: true, title: '' }} />
-        <View style={styles.centered}>
-          <Text>Spot not found.</Text>
-        </View>
-      </>
+      <View style={styles.centered}>
+        <Text>Spot not found.</Text>
+      </View>
     )
   }
 
@@ -74,9 +72,23 @@ export default function StudySpotDetail() {
     ? `${spot.rating.toFixed(1)} / 5  (${spot.ratingCount} ${spot.ratingCount === 1 ? 'rating' : 'ratings'})`
     : `${spot.rating} / 5`
 
+  const distanceLabel =
+    coords && spot.latitude != null && spot.longitude != null
+      ? formatDistance(distanceMiles(coords.latitude, coords.longitude, spot.latitude, spot.longitude))
+      : null
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Stack.Screen options={{ headerShown: true, title: spot.name, headerBackTitle: 'Back' }} />
+      <Stack.Screen
+        options={{
+          title: spot.name,
+          headerLeft: () => (
+            <Pressable onPress={() => router.back()} hitSlop={12}>
+              <Text style={styles.headerBack}>‹ Back</Text>
+            </Pressable>
+          ),
+        }}
+      />
       {showPlaceholder ? (
         <View style={[styles.image, styles.placeholder]}>
           <Text style={styles.placeholderText}>📍</Text>
@@ -95,7 +107,7 @@ export default function StudySpotDetail() {
       <View style={styles.divider} />
 
       <Row label="Rating" value={ratingLabel} />
-      {spot.distance !== undefined && <Row label="Distance" value={spot.distance} />}
+      {distanceLabel && <Row label="Distance" value={distanceLabel} />}
       {spot.noiseLevel !== undefined && <Row label="Noise Level" value={spot.noiseLevel} />}
       {spot.hasWifi !== undefined && <Row label="WiFi" value={spot.hasWifi ? 'Yes' : 'No'} />}
       {spot.hasOutlets !== undefined && <Row label="Outlets" value={spot.hasOutlets ? 'Yes' : 'No'} />}
@@ -182,4 +194,5 @@ const styles = StyleSheet.create({
   submitButton:        { backgroundColor: '#2774AE', borderRadius: 10, paddingVertical: 12, alignItems: 'center', marginTop: 4 },
   submitButtonDisabled:{ opacity: 0.6 },
   submitButtonText:    { color: '#fff', fontSize: 15, fontWeight: '600' },
+  headerBack:          { color: '#2774AE', fontSize: 16, paddingHorizontal: 8 },
 })
