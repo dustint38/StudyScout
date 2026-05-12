@@ -10,6 +10,7 @@ export type StudySpot = {
   name: string;
   address: string;
   rating: number;
+  ratingCount?: number;
   distance?: string;
   imageURL?: string;
   noiseLevel?: 'Quiet' | 'Moderate' | 'Loud';

@@ -1,10 +1,10 @@
 import { StyleSheet, View } from 'react-native';
-import StudySpotMap from '@/components/StudySpotMap';
+import SpotMap from '@/components/SpotMap';
 
 export default function MapScreen() {
   return (
     <View style={styles.container}>
-      <StudySpotMap />
+      <SpotMap />
     </View>
   );
 }
