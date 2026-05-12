@@ -48,6 +48,12 @@
             "backgroundColor": "#000000"
           }
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow StudyScout to access your photos to add images of study spots."
+        }
       ]
     ],
     "experiments": {
