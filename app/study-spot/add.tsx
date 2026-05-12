@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import {
   View, Text, TextInput, Pressable, StyleSheet,
-  ScrollView, ActivityIndicator, Alert,
+  ScrollView, ActivityIndicator, Alert, Image,
 } from 'react-native'
 import { router, Stack } from 'expo-router'
-import { addStudySpot } from '@/services/db'
+import * as ImagePicker from 'expo-image-picker'
+import { addStudySpot, compressImageToDataUri } from '@/services/db'
 
 const NOISE_LEVELS = ['Quiet', 'Moderate', 'Loud'] as const
 type NoiseLevel = typeof NOISE_LEVELS[number]
@@ -14,7 +15,7 @@ export default function AddStudySpot() {
   const [address, setAddress] = useState('')
   const [rating, setRating] = useState('')
   const [distance, setDistance] = useState('')
-  const [imageURL, setImageURL] = useState('')
+  const [imageUri, setImageUri] = useState<string | null>(null)
   const [noiseLevel, setNoiseLevel] = useState<NoiseLevel | null>(null)
   const [hasWifi, setHasWifi] = useState<boolean | null>(null)
   const [hasOutlets, setHasOutlets] = useState<boolean | null>(null)
@@ -32,12 +33,16 @@ export default function AddStudySpot() {
     }
     setLoading(true)
     try {
+      let imageData: string | undefined
+      if (imageUri) {
+        imageData = await compressImageToDataUri(imageUri)
+      }
       await addStudySpot({
         name: name.trim(),
         address: address.trim(),
         rating: parsedRating,
         ...(distance.trim() && { distance: distance.trim() }),
-        ...(imageURL.trim() && { imageURL: imageURL.trim() }),
+        ...(imageData && { imageURL: imageData }),
         ...(noiseLevel && { noiseLevel }),
         ...(hasWifi !== null && { hasWifi }),
         ...(hasOutlets !== null && { hasOutlets }),
@@ -47,6 +52,23 @@ export default function AddStudySpot() {
       Alert.alert('Error', e.message)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const pickImage = async () => {
+    const perm = await ImagePicker.requestMediaLibraryPermissionsAsync()
+    if (!perm.granted) {
+      Alert.alert('Permission needed', 'Please allow access to your photo library.')
+      return
+    }
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsEditing: true,
+      aspect: [16, 9],
+      quality: 0.7,
+    })
+    if (!result.canceled && result.assets[0]) {
+      setImageUri(result.assets[0].uri)
     }
   }
 
@@ -66,8 +88,22 @@ export default function AddStudySpot() {
         <Text style={styles.label}>Distance</Text>
         <TextInput style={styles.input} value={distance} onChangeText={setDistance} placeholder="e.g. 0.3 mi" />
 
-        <Text style={styles.label}>Image URL</Text>
-        <TextInput style={styles.input} value={imageURL} onChangeText={setImageURL} placeholder="https://..." autoCapitalize="none" />
+        <Text style={styles.label}>Photo</Text>
+        {imageUri ? (
+          <View style={styles.imageWrapper}>
+            <Image source={{ uri: imageUri }} style={styles.preview} />
+            <Pressable style={styles.imageOverlayButton} onPress={pickImage}>
+              <Text style={styles.imageOverlayText}>Change</Text>
+            </Pressable>
+            <Pressable style={[styles.imageOverlayButton, styles.imageRemoveButton]} onPress={() => setImageUri(null)}>
+              <Text style={styles.imageOverlayText}>Remove</Text>
+            </Pressable>
+          </View>
+        ) : (
+          <Pressable style={styles.imagePicker} onPress={pickImage}>
+            <Text style={styles.imagePickerText}>+ Choose Photo</Text>
+          </Pressable>
+        )}
 
         <Text style={styles.label}>Noise Level</Text>
         <View style={styles.chipRow}>
@@ -129,4 +165,11 @@ const styles = StyleSheet.create({
   chipTextActive:  { color: '#fff' },
   submitButton:    { marginTop: 32, backgroundColor: '#2774AE', borderRadius: 10, padding: 14, alignItems: 'center' },
   submitText:      { color: '#fff', fontWeight: '700', fontSize: 15 },
+  imagePicker:     { borderWidth: 1, borderColor: '#ddd', borderStyle: 'dashed', borderRadius: 10, padding: 24, alignItems: 'center', backgroundColor: '#fafafa' },
+  imagePickerText: { fontSize: 15, color: '#666', fontWeight: '500' },
+  imageWrapper:    { position: 'relative', borderRadius: 10, overflow: 'hidden' },
+  preview:         { width: '100%', height: 180 },
+  imageOverlayButton: { position: 'absolute', top: 8, right: 8, backgroundColor: 'rgba(0,0,0,0.6)', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 14 },
+  imageRemoveButton:  { top: 'auto', bottom: 8 },
+  imageOverlayText:   { color: '#fff', fontSize: 12, fontWeight: '600' },
 })

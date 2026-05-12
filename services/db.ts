@@ -1,7 +1,17 @@
 import { collection, getDocs, doc, getDoc, addDoc } from "firebase/firestore";
+import { ImageManipulator, SaveFormat } from "expo-image-manipulator";
 import { db } from "../config/firebase";
 import { User } from "../types";
 import { StudySpot } from "../types";
+
+// Compress + downscale a local image and return a data URI safe for Firestore (<1MB doc limit)
+export const compressImageToDataUri = async (localUri: string): Promise<string> => {
+  const context = ImageManipulator.manipulate(localUri);
+  context.resize({ width: 800 });
+  const image = await context.renderAsync();
+  const result = await image.saveAsync({ format: SaveFormat.JPEG, compress: 0.5, base64: true });
+  return `data:image/jpeg;base64,${result.base64}`;
+};
 
 export const getUser = async (id: string): Promise<User | null> => {
   const snap = await getDoc(doc(db, "users", id));

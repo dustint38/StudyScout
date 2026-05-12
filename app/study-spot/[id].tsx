@@ -11,17 +11,23 @@ export default function StudySpotDetail() {
 
   if (loading) {
     return (
-      <View style={styles.centered}>
-        <ActivityIndicator size="large" color="#000" />
-      </View>
+      <>
+        <Stack.Screen options={{ headerShown: true, title: '' }} />
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" color="#000" />
+        </View>
+      </>
     )
   }
 
   if (!spot) {
     return (
-      <View style={styles.centered}>
-        <Text>Spot not found.</Text>
-      </View>
+      <>
+        <Stack.Screen options={{ headerShown: true, title: '' }} />
+        <View style={styles.centered}>
+          <Text>Spot not found.</Text>
+        </View>
+      </>
     )
   }
 
@@ -29,7 +35,7 @@ export default function StudySpotDetail() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Stack.Screen options={{ title: spot.name }} />
+      <Stack.Screen options={{ headerShown: true, title: spot.name, headerBackTitle: 'Back' }} />
       {showPlaceholder ? (
         <View style={[styles.image, styles.placeholder]}>
           <Text style={styles.placeholderText}>📍</Text>

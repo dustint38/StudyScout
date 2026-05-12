@@ -18,7 +18,6 @@ export default function StudySpotMap() {
   return (
     <MapView
       style={styles.map}
-      provider="google"
       initialRegion={{
         latitude: 34.0689,
         longitude: -118.4452,
