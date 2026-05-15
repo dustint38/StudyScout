@@ -30,7 +30,9 @@ export default function StudySpotCard({ spot, onPress }: Props) {
       )}
       <View style={styles.info}>
         <Text style={styles.name}>{spot.name}</Text>
-        <Text style={styles.detail}>⭐{spot.rating} · {spot.distance}</Text>
+        <Text style={styles.detail}>
+          ⭐{spot.rating} · {spot.distance}{spot.crowdLevel ? ` · 👥 ${spot.crowdLevel}` : ''}
+        </Text>
       </View>
     </Pressable>
   )
